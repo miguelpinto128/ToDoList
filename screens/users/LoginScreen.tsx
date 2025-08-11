@@ -1,9 +1,10 @@
 import { loginUser } from "@/db/users";
 import Feather from "@expo/vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { Formik } from "formik";
-import React, { FC, useRef } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { Alert, Appearance, Platform } from "react-native";
 import * as Yup from "yup";
 import * as S from "./styles";
@@ -16,6 +17,7 @@ const buttonColor = Platform.select({
 const LoginScreen: FC = () => {
   const router = useRouter();
   const formikRef = useRef<any>(null);
+  const isFocused = useIsFocused();
 
   const onSubmit = async (values: { email: string; password: string }) => {
     try {
@@ -31,13 +33,18 @@ const LoginScreen: FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (formikRef.current) {
+      formikRef.current.resetForm();
+    }
+  }, [isFocused]);
+
   return (
     <S.SafeArea>
       <S.Title>Login</S.Title>
       <Formik
         innerRef={formikRef}
-        // TODO remove mocked data
-        initialValues={{ email: "test@gmail.co", password: "123456" }}
+        initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({
           email: Yup.string()
             .email("Invalid email")

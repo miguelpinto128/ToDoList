@@ -45,7 +45,6 @@ const RootLayout: FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const isFocused = useIsFocused();
-
   const [user, setUser] = useState<UserRow | null>(null);
   const router = useRouter();
   const [loaded] = useFonts({
@@ -57,29 +56,6 @@ const RootLayout: FC = () => {
       SplashScreen.hide();
     }
   }, [loaded]);
-
-  useEffect(() => {
-    initializeTasksDb();
-    initializeUsersDb();
-
-    const checkLoginStatus = async () => {
-      try {
-        setIsLoading(true);
-        const token = await AsyncStorage.getItem("@userToken");
-        if (token) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error("Error checking login status:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkLoginStatus();
-  }, [isFocused]);
 
   const fetchUser = useCallback(async () => {
     const token = await AsyncStorage.getItem("@userToken");
@@ -103,6 +79,26 @@ const RootLayout: FC = () => {
   }, [router]);
 
   useEffect(() => {
+    initializeTasksDb();
+    initializeUsersDb();
+
+    const checkLoginStatus = async () => {
+      try {
+        setIsLoading(true);
+        const token = await AsyncStorage.getItem("@userToken");
+        if (token) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkLoginStatus();
     fetchUser();
   }, [fetchUser, isFocused]);
 
