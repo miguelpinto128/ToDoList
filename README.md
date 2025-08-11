@@ -3,6 +3,9 @@
 ## Observations
 
 - Swipe on task to se the edit button
+- Test User info
+  - email: test@gmail.com
+  - password: 123456
 
 ## Features
 

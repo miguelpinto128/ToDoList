@@ -4,6 +4,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { useIsFocused } from "@react-navigation/native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { Formik } from "formik";
+import moment from "moment";
 import React, {
   FC,
   useCallback,
@@ -18,7 +19,9 @@ import {
   Appearance,
   Platform,
   Switch,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import * as Yup from "yup";
 import * as S from "./styles";
@@ -32,6 +35,9 @@ const SettingsScreen: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation();
   const titleInputRef = React.useRef<any>(null);
+  const isIos = Platform.OS === "ios" ? true : false;
+  const [shouldRenderDate, setShouldRenderDate] = useState(isIos);
+  const [shouldRenderTime, setShouldRenderTime] = useState(isIos);
   const buttonColor = Platform.select({
     ios: "#007AFF",
     android: Appearance.getColorScheme() === "dark" ? "#BB86FC" : "#6200EE",
@@ -255,42 +261,94 @@ const SettingsScreen: FC = () => {
             <S.Label>Date and Time of conclusion</S.Label>
             <S.DateTimeRow>
               <S.DateTimeColumn>
-                <DateTimePicker
-                  mode="date"
-                  value={values.date ? new Date(values.date) : new Date()}
-                  display={Platform.OS === "ios" ? "compact" : "default"}
-                  onChange={(_, selectedDate) => {
-                    if (selectedDate) {
-                      setFieldValue(
-                        "date",
-                        selectedDate.toISOString().split("T")[0]
-                      );
-                    }
-                  }}
-                />
+                {!isIos && (
+                  <TouchableOpacity onPress={() => setShouldRenderDate(true)}>
+                    <View
+                      style={{
+                        padding: 12,
+                        borderWidth: 1,
+                        borderColor: "#ccc",
+                        borderRadius: 8,
+                      }}
+                    >
+                      <Text>
+                        {values.date
+                          ? moment(new Date(values.date)).format("YYYY-MM-DD")
+                          : moment().format("YYYY-MM-DD")}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
+                {shouldRenderDate && (
+                  <DateTimePicker
+                    mode="date"
+                    value={values.date ? new Date(values.date) : new Date()}
+                    display="compact"
+                    onChange={(_, selectedDate) => {
+                      if (selectedDate) {
+                        setFieldValue(
+                          "date",
+                          selectedDate.toISOString().split("T")[0]
+                        );
+                        if (!isIos) {
+                          setShouldRenderDate(false);
+                        }
+                      }
+                    }}
+                  />
+                )}
                 {touched.date && errors.date && (
                   <S.ErrorText>{errors.date}</S.ErrorText>
                 )}
               </S.DateTimeColumn>
               <S.DateTimeColumn>
-                <DateTimePicker
-                  mode="time"
-                  value={values.date ? new Date(values.date) : new Date()}
-                  display={Platform.OS === "ios" ? "compact" : "default"}
-                  onChange={(_, selectedTime) => {
-                    if (selectedTime) {
-                      const hours = selectedTime
-                        .getHours()
-                        .toString()
-                        .padStart(2, "0");
-                      const minutes = selectedTime
-                        .getMinutes()
-                        .toString()
-                        .padStart(2, "0");
-                      setFieldValue("time", `${hours}:${minutes}`);
+                {!isIos && (
+                  <TouchableOpacity onPress={() => setShouldRenderTime(true)}>
+                    <View
+                      style={{
+                        padding: 12,
+                        borderWidth: 1,
+                        borderColor: "#ccc",
+                        borderRadius: 8,
+                      }}
+                    >
+                      <Text>
+                        {values.date
+                          ? moment(new Date(values.date)).format("HH:mm")
+                          : moment().format("HH:mm")}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
+                {shouldRenderTime && (
+                  <DateTimePicker
+                    mode="time"
+                    value={
+                      values.time
+                        ? new Date(`2025-01-01T${values.time}:00`)
+                        : new Date()
                     }
-                  }}
-                />
+                    display="compact"
+                    onChange={(_, selectedTime) => {
+                      if (selectedTime) {
+                        if (selectedTime) {
+                          const hours = selectedTime
+                            .getHours()
+                            .toString()
+                            .padStart(2, "0");
+                          const minutes = selectedTime
+                            .getMinutes()
+                            .toString()
+                            .padStart(2, "0");
+                          setFieldValue("time", `${hours}:${minutes}`);
+                        }
+                        if (!isIos) {
+                          setShouldRenderTime(false);
+                        }
+                      }
+                    }}
+                  />
+                )}
                 {touched.time && errors.time && (
                   <S.ErrorText>{errors.time}</S.ErrorText>
                 )}

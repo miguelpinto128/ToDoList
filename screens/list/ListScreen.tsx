@@ -10,6 +10,8 @@ import {
   FlatList,
   Platform,
   RefreshControl,
+  Text,
+  View,
 } from "react-native";
 import SwipeableItem, {
   SwipeableItemImperativeRef,
@@ -86,6 +88,26 @@ const ListScreen: FC = () => {
     );
   }
 
+  if (!tasks?.length) {
+    return (
+      <S.StyledSafeAreaView>
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <Feather name="inbox" size={48} color="#ccc" />
+          <Text>No tasks yet</Text>
+          <S.FloatingButton
+            style={{ marginTop: 24 }}
+            bgColor={buttonColor}
+            onPress={() => router.push(`/add`)}
+          >
+            <Feather name="plus" size={24} color="white" />
+          </S.FloatingButton>
+        </View>
+      </S.StyledSafeAreaView>
+    );
+  }
+
   return (
     <S.StyledSafeAreaView>
       <FlatList
@@ -120,6 +142,7 @@ const ListScreen: FC = () => {
               title={item.title}
               description={item.description}
               date={item.date}
+              time={item.time}
               isSelected={selectedItems.includes(item.id.toString())}
               onPress={() => {
                 if (
