@@ -2,7 +2,7 @@
 
 ## Observations
 
-- Swipe on task se the edit button
+- Swipe on task to se the edit button
 
 ## Features
 
