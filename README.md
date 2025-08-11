@@ -16,3 +16,4 @@
 - Edit Task
 - Complete Task
 - Delete Task
+- Add Task
