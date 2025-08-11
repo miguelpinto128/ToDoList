@@ -1,9 +1,24 @@
 # ToDoList
 
+- ToDo List app built with React Native using:
+- Expo
+- Expo Navigation
+- Expo SQLite (local database)
+- Styled Components
+- Typescript
+
+## Functional Tests
+
+- Tested on Android and IOS
+
+## Unit Tests
+
+-
+
 ## Observations
 
-- Swipe on task to se the edit button
-- Test User info
+- Swipe left on task to se the edit button
+- Mocked User info for login (can create your own then delete this test user, test user will be added to database again)
   - email: test@gmail.com
   - password: 123456
 
