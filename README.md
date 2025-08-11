@@ -9,11 +9,12 @@
 
 ## Functional Tests
 
-- Tested on Android and IOS
+- Tested on IOS
+- Had a problem with android studio and could not test the entire app on android, but ios is fully functional, android should be as well but can't garante, had some problems with datepickers but was able to fix them when I still had the android simulator
 
 ## Unit Tests
 
--
+- Unit testing with Jest
 
 ## Observations
 

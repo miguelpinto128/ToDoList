@@ -82,7 +82,7 @@ const ListScreen: FC = () => {
 
   if (isLoading) {
     return (
-      <S.StyledSafeAreaView>
+      <S.StyledSafeAreaView testID="ActivityIndicator">
         <ActivityIndicator />
       </S.StyledSafeAreaView>
     );
@@ -100,6 +100,7 @@ const ListScreen: FC = () => {
             style={{ marginTop: 24 }}
             bgColor={buttonColor}
             onPress={() => router.push(`/add`)}
+            testID="addButton"
           >
             <Feather name="plus" size={24} color="white" />
           </S.FloatingButton>
@@ -111,6 +112,7 @@ const ListScreen: FC = () => {
   return (
     <S.StyledSafeAreaView>
       <FlatList
+        testID="TaskList"
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
@@ -166,6 +168,7 @@ const ListScreen: FC = () => {
         style={{ marginBottom: 32, marginRight: 16 }}
         bgColor={buttonColor}
         onPress={() => router.push(`/add`)}
+        testID="addButton"
       >
         <Feather name="plus" size={24} color="white" />
       </S.FloatingButton>

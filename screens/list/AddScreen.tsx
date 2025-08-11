@@ -95,7 +95,7 @@ const AddScreen: FC = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <S.BackButtonWrapper onPress={handleBackPress}>
+        <S.BackButtonWrapper onPress={handleBackPress} testID="back-button">
           <Feather name="arrow-left" size={24} color={buttonColor} />
         </S.BackButtonWrapper>
       ),
@@ -259,6 +259,7 @@ const AddScreen: FC = () => {
             <S.Label>Completed</S.Label>
             <S.CheckboxContainer>
               <Switch
+                testID="completed-switch"
                 value={values.completed}
                 onValueChange={(value) => {
                   setFieldValue("completed", value);
@@ -266,6 +267,7 @@ const AddScreen: FC = () => {
               />
             </S.CheckboxContainer>
             <S.FloatingButton
+              testID="submit-button"
               disabled={!dirty}
               bgColor={buttonColor}
               onPress={handleSubmit as any}
