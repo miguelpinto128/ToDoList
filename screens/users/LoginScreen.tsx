@@ -36,7 +36,8 @@ const LoginScreen: FC = () => {
       <S.Title>Login</S.Title>
       <Formik
         innerRef={formikRef}
-        initialValues={{ email: "miguelpinto@gmail.co", password: "123456" }}
+        // TODO remove mocked data
+        initialValues={{ email: "test@gmail.co", password: "123456" }}
         validationSchema={Yup.object({
           email: Yup.string()
             .email("Invalid email")
