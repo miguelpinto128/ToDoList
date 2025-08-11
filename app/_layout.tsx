@@ -27,7 +27,7 @@ const LoginNavigator: FC = () => {
     <Stack>
       <Stack.Screen
         name="index"
-        options={{ headerShown: true, title: "Login" }}
+        options={{ headerShown: false, title: "Login" }}
       />
       <Stack.Screen
         name="register"
@@ -35,7 +35,7 @@ const LoginNavigator: FC = () => {
       />
       <Stack.Screen
         name="list"
-        options={{ headerShown: true, title: "My ToDo List" }}
+        options={{ headerShown: false, title: "My ToDo List" }}
       />
     </Stack>
   );
@@ -220,7 +220,7 @@ const RootLayout: FC = () => {
             name="register"
             options={{
               drawerItemStyle: { display: "none" },
-              headerTitle: "Edit Task",
+              headerTitle: "Register User",
             }}
           />
           <Drawer.Screen
@@ -233,6 +233,7 @@ const RootLayout: FC = () => {
           <Drawer.Screen
             name="/"
             options={{
+              headerShown: false,
               drawerItemStyle: { display: "none" },
             }}
           />

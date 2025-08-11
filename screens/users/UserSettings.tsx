@@ -4,7 +4,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import { useNavigation, useRouter } from "expo-router";
 import { Formik } from "formik";
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -99,6 +106,16 @@ const EditUserScreen: FC = () => {
       }
     }
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <S.BackButtonWrapper onPress={() => router.push("/profile")}>
+          <Feather name="arrow-left" size={24} color={buttonColor} />
+        </S.BackButtonWrapper>
+      ),
+    });
+  }, [navigation, router]);
 
   if (isLoading || !user) {
     return (

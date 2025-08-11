@@ -3,7 +3,7 @@ import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { Formik } from "formik";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { Alert, Appearance, Platform } from "react-native";
 import * as Yup from "yup";
 import * as S from "./styles"; // Your styled components
@@ -46,6 +46,16 @@ const RegisterScreen: React.FC = () => {
   useEffect(() => {
     formikRef.current?.resetForm();
   }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <S.BackButtonWrapper onPress={() => router.replace("/")}>
+          <Feather name="arrow-left" size={24} color={buttonColor} />
+        </S.BackButtonWrapper>
+      ),
+    });
+  }, [buttonColor, navigation, router]);
 
   return (
     <S.SafeArea>
