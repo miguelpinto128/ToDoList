@@ -23,7 +23,7 @@ export const ListItem = ({
 }: ListItemProps) => {
   return (
     <S.ListItemWrapper activeOpacity={1} onPress={onPress} {...props}>
-      <S.StyledCheckbox value={isSelected} />
+      <S.StyledCheckbox value={isSelected} pointerEvents="none" />
       <View>
         <S.ListItemTitle numberOfLines={1}>{title}</S.ListItemTitle>
         {description && (
