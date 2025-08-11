@@ -9,12 +9,21 @@
 
 ## Features
 
+### User
+
 - Login
 - Register User
 - Delete User
 - Edit user Data
-- Drawer Navigation
 - Logout
+
+### Navigation
+
+- Drawer Navigation
+- Stack Navigation
+
+### ToDo List
+
 - List Tasks
 - Edit Task
 - Complete Task
